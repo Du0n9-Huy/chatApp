@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     private let scrollView: UIScrollView = {
@@ -154,6 +155,16 @@ class RegisterViewController: UIViewController {
         else {
             alertUserRegisterError()
             return
+        }
+        
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            guard let result = authResult, error == nil else {
+                print("Đăng ký tài khoản thất bại.")
+                print(error!.localizedDescription)
+                return
+            }
+            let user = result.user
+            print("Đăng ký thành công: \(user)")
         }
     }
     

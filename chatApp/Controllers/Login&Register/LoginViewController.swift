@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     private let scrollView: UIScrollView = {
@@ -105,6 +106,16 @@ class LoginViewController: UIViewController {
         else {
             alertUserLoginError()
             return
+        }
+        
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            guard let result = authResult, error == nil else {
+                print("Đăng nhập thất bại.")
+                print(error!.localizedDescription)
+                return
+            }
+            let user = result.user
+            print("Đăng nhập thành công với người dùng: \(user)")
         }
     }
     
