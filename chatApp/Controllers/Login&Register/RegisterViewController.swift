@@ -5,8 +5,8 @@
 //  Created by huy on 22/09/2022.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 class RegisterViewController: UIViewController {
     private let scrollView: UIScrollView = {
@@ -26,7 +26,7 @@ class RegisterViewController: UIViewController {
         return imageView
     }()
     
-    private let firstNameTF: UITextField = { 
+    private let firstNameTF: UITextField = {
         let tf = UITextField()
         tf.autocapitalizationType = .none
         tf.autocorrectionType = .no
@@ -157,19 +157,28 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            guard let result = authResult, error == nil else {
-                print("Đăng ký tài khoản thất bại.")
-                print(error!.localizedDescription)
+        DatabaseManager.shared.userDoesExist(email: email) { [weak self] userDoesExist in
+            guard !userDoesExist else {
+                self?.alertUserRegisterError(message: "Looks like a user account for that email address has already existed")
                 return
             }
-            let user = result.user
-            print("Đăng ký thành công: \(user)")
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                guard let result = authResult, error == nil else {
+                    print("Đăng ký tài khoản thất bại.")
+                    print(error!.localizedDescription)
+                    return
+                }
+                DatabaseManager.shared.insertUser(with: chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email))
+                let user = result.user
+                print("Đăng ký thành công: \(user)")
+                
+                self?.navigationController?.dismiss(animated: true)
+            }
         }
     }
     
-    private func alertUserRegisterError() {
-        let alert = UIAlertController(title: "Woops", message: "Please enter all information to create a new account", preferredStyle: .alert)
+    private func alertUserRegisterError(message: String = "Please enter all information to create a new account") {
+        let alert = UIAlertController(title: "Woops", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         present(alert, animated: true)
     }

@@ -5,8 +5,8 @@
 //  Created by huy on 22/09/2022.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 class LoginViewController: UIViewController {
     private let scrollView: UIScrollView = {
@@ -108,7 +108,7 @@ class LoginViewController: UIViewController {
             return
         }
         
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             guard let result = authResult, error == nil else {
                 print("Đăng nhập thất bại.")
                 print(error!.localizedDescription)
@@ -116,6 +116,8 @@ class LoginViewController: UIViewController {
             }
             let user = result.user
             print("Đăng nhập thành công với người dùng: \(user)")
+            
+            self?.navigationController?.dismiss(animated: true)
         }
     }
     
