@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		87C8A682885B7E492616F025 /* Pods_chatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22888EB61AF6F8F607BD0B7D /* Pods_chatApp.framework */; };
+		E5A3F13028F04D700035EFDF /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */; };
 		E5A7895A28DC569800005572 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7895928DC569800005572 /* AppDelegate.swift */; };
 		E5A7895C28DC569800005572 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7895B28DC569800005572 /* SceneDelegate.swift */; };
 		E5A7895E28DC569800005572 /* Conversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7895D28DC569800005572 /* Conversations.swift */; };
@@ -28,6 +29,8 @@
 		22888EB61AF6F8F607BD0B7D /* Pods_chatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93024CD4F222755D675DF5E0 /* Pods-chatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatApp.debug.xcconfig"; path = "Target Support Files/Pods-chatApp/Pods-chatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B123F6630DA68CA1963A982C /* Pods-chatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatApp.release.xcconfig"; path = "Target Support Files/Pods-chatApp/Pods-chatApp.release.xcconfig"; sourceTree = "<group>"; };
+		E533882E28F2E798006F5DE2 /* chatApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = chatApp.entitlements; sourceTree = "<group>"; };
+		E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		E5A7895628DC569800005572 /* chatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A7895928DC569800005572 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5A7895B28DC569800005572 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 		E5A7895828DC569800005572 /* chatApp */ = {
 			isa = PBXGroup;
 			children = (
+				E533882E28F2E798006F5DE2 /* chatApp.entitlements */,
 				E5AF208C28E45FFD00FC80AD /* GoogleService-Info.plist */,
 				E5A7896728DC569900005572 /* Info.plist */,
 				E5A7897028DC592500005572 /* Views */,
@@ -136,6 +140,7 @@
 				E5A7897A28DC5AF900005572 /* PhotoViewerViewController.swift */,
 				E5A7897C28DC5B0800005572 /* VideoPlayerViewController.swift */,
 				E5A7897E28DC5B2600005572 /* ProfileViewController.swift */,
+				E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 				E5A7898228DC66F100005572 /* Extension.swift in Sources */,
 				E5A7897D28DC5B0800005572 /* VideoPlayerViewController.swift in Sources */,
 				E5A7897F28DC5B2600005572 /* ProfileViewController.swift in Sources */,
+				E5A3F13028F04D700035EFDF /* MainTabBarViewController.swift in Sources */,
 				E5A7897728DC5AE100005572 /* LoginViewController.swift in Sources */,
 				E5A7895C28DC569800005572 /* SceneDelegate.swift in Sources */,
 			);
@@ -434,6 +440,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = chatApp/chatApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M669YQ73BG;
@@ -462,6 +469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = chatApp/chatApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M669YQ73BG;

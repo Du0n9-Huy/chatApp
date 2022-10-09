@@ -5,6 +5,7 @@
 //  Created by huy on 22/09/2022.
 //
 
+import FBSDKLoginKit
 import FirebaseAuth
 import UIKit
 
@@ -63,6 +64,12 @@ class LoginViewController: UIViewController {
         btn.layer.masksToBounds = true
         return btn
     }()
+    
+    private let facebookLoginButton: FBLoginButton = {
+        let btn = FBLoginButton()
+        btn.permissions = ["public_profile", "email"]
+        return btn
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +79,7 @@ class LoginViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegisterButton))
         
         loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        facebookLoginButton.delegate = self
         
         emailTF.delegate = self
         passwordTF.delegate = self
@@ -81,6 +89,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(emailTF)
         scrollView.addSubview(passwordTF)
         scrollView.addSubview(loginButton)
+        scrollView.addSubview(facebookLoginButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -90,6 +99,7 @@ class LoginViewController: UIViewController {
         emailTF.frame = CGRect(x: 30, y: imageView.bottom + 20, width: scrollView.width - 60, height: 52)
         passwordTF.frame = CGRect(x: 30, y: emailTF.bottom + 20, width: scrollView.width - 60, height: 52)
         loginButton.frame = CGRect(x: 30, y: passwordTF.bottom + 20, width: scrollView.width - 60, height: 52)
+        facebookLoginButton.frame = CGRect(x: 30, y: loginButton.bottom + 20, width: scrollView.width - 60, height: 52)
     }
     
     @objc private func didTapRegisterButton() {
@@ -137,5 +147,60 @@ extension LoginViewController: UITextFieldDelegate {
             didTapLoginButton()
         }
         return true
+    }
+}
+
+extension LoginViewController: LoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
+        // no operation
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
+        guard let token = result?.token?.tokenString else {
+            print("User failed to login with Facebook")
+            return
+        }
+        
+        let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me", parameters: ["fields": "email, name"], tokenString: token, version: nil, httpMethod: .get)
+        
+        facebookRequest.start { _, result, error in
+            guard let result = result as? [String: Any], error == nil else {
+                print("Failed to make a facebook graph request.")
+                return
+            }
+             
+            guard let username = result["name"] as? String,
+                  let email = result["email"] as? String
+            else {
+                print("Failed to get email and name from facebook result.")
+                return
+            }
+            
+            let nameComponents = username.components(separatedBy: " ")
+            guard nameComponents.count > 2 else {
+                return
+            }
+            
+            let firstName = nameComponents[0]
+            let lastName = nameComponents[1]
+            
+            DatabaseManager.shared.userDoesExist(email: email) { userDoesExist in
+                if !userDoesExist {
+                    DatabaseManager.shared.insertUser(with: chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email))
+                }
+            }
+            
+            let credential = FacebookAuthProvider.credential(withAccessToken: token)
+            
+            FirebaseAuth.Auth.auth().signIn(with: credential) {
+                [weak self] authResult, error in
+                guard authResult != nil, error == nil else {
+                    print("Facebook credential login failed, MFA may be neeeded", error as Any)
+                    return
+                }
+                print("Successfully logged user in with Facebook")
+                self?.dismiss(animated: true)
+            }
+        }
     }
 }

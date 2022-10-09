@@ -19,11 +19,11 @@ extension DatabaseManager {
     func userDoesExist(email: String, completion: @escaping (Bool) -> Void) {
         let safeEmailAddress = email.replacingOccurrences(of: ".", with: "-")
         database.child(safeEmailAddress).observeSingleEvent(of: .value) { snapshot in
-            guard let user = snapshot.value as? [String:Any] else {
+            guard let user = snapshot.value as? [String: Any] else {
                 completion(false)
                 return
             }
-            print(user)
+            print("User does exist on realtime-database", user)
             completion(true)
         }
     }
