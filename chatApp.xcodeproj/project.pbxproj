@@ -10,6 +10,7 @@
 		87C8A682885B7E492616F025 /* Pods_chatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22888EB61AF6F8F607BD0B7D /* Pods_chatApp.framework */; };
 		E531B80F28F57E5E0084D196 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531B80E28F57E5E0084D196 /* LoginViewModel.swift */; };
 		E531B81328F5D7C50084D196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E531B81228F5D7C50084D196 /* GoogleService-Info.plist */; };
+		E5719D6E28F68BAC00AAF3E0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5719D6D28F68BAC00AAF3E0 /* ChatViewController.swift */; };
 		E5A3F13028F04D700035EFDF /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */; };
 		E5A7895A28DC569800005572 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7895928DC569800005572 /* AppDelegate.swift */; };
 		E5A7895C28DC569800005572 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7895B28DC569800005572 /* SceneDelegate.swift */; };
@@ -33,6 +34,7 @@
 		E531B80E28F57E5E0084D196 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E531B81228F5D7C50084D196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E533882E28F2E798006F5DE2 /* chatApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = chatApp.entitlements; sourceTree = "<group>"; };
+		E5719D6D28F68BAC00AAF3E0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		E5A7895628DC569800005572 /* chatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A7895928DC569800005572 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				E5A7897C28DC5B0800005572 /* VideoPlayerViewController.swift */,
 				E5A7897E28DC5B2600005572 /* ProfileViewController.swift */,
 				E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */,
+				E5719D6D28F68BAC00AAF3E0 /* ChatViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				E5A7897D28DC5B0800005572 /* VideoPlayerViewController.swift in Sources */,
 				E531B80F28F57E5E0084D196 /* LoginViewModel.swift in Sources */,
 				E5A7897F28DC5B2600005572 /* ProfileViewController.swift in Sources */,
+				E5719D6E28F68BAC00AAF3E0 /* ChatViewController.swift in Sources */,
 				E5A3F13028F04D700035EFDF /* MainTabBarViewController.swift in Sources */,
 				E5A7897728DC5AE100005572 /* LoginViewController.swift in Sources */,
 				E5A7895C28DC569800005572 /* SceneDelegate.swift in Sources */,

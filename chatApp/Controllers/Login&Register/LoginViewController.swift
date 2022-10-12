@@ -8,9 +8,12 @@
 import FBSDKLoginKit
 import FirebaseAuth
 import GoogleSignIn
+import JGProgressHUD
 import UIKit
 
 class LoginViewController: UIViewController {
+    private let spinner = JGProgressHUD(style: .dark)
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -122,21 +125,41 @@ class LoginViewController: UIViewController {
         emailTF.resignFirstResponder()
         passwordTF.resignFirstResponder()
         
+        spinner.show(in: view)
+        
         guard let email = emailTF.text, let password = passwordTF.text,
               !email.isEmpty, !password.isEmpty, password.count >= 6
         else {
+            DispatchQueue.main.async {
+                self.spinner.dismiss(animated: true)
+            }
             alertUserLoginError()
             return
         }
         
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            
+            /*
+              Whenever you do anything user interface related
+              you need to do it on the main thread.
+             
+             This callback that Firebase gives us comes back on a background thread
+             
+             So we need to call this function
+             "self?/self.spinner.dismiss(animated: true)"
+             on the main queue
+             */
+            
             guard authResult != nil, error == nil else {
                 print("Đăng nhập sử dụng email/password thất bại.")
                 print(error!.localizedDescription)
+                DispatchQueue.main.async {
+                    self?.spinner.dismiss(animated: true)
+                }
+                self?.alertUserLoginError(with: "Sai tài khoản hoặc mật khẩu.")
                 return
             }
             print("Đăng nhập sử dụng email/password thành công")
-            
             self?.navigationController?.dismiss(animated: true)
         }
     }
@@ -145,8 +168,8 @@ class LoginViewController: UIViewController {
         LoginViewModel.shared.googleSignIn()
     }
     
-    private func alertUserLoginError() {
-        let alert = UIAlertController(title: "Woops", message: "Please enter all information to login", preferredStyle: .alert)
+    private func alertUserLoginError(with message: String = "Please enter all information to login") {
+        let alert = UIAlertController(title: "Woops", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         present(alert, animated: true)
     }

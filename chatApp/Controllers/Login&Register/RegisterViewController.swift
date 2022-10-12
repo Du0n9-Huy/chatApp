@@ -6,9 +6,12 @@
 //
 
 import FirebaseAuth
+import JGProgressHUD
 import UIKit
 
 class RegisterViewController: UIViewController {
+    private let spinner = JGProgressHUD(style: .dark)
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -146,6 +149,8 @@ class RegisterViewController: UIViewController {
         emailTF.resignFirstResponder()
         passwordTF.resignFirstResponder()
         
+        spinner.show(in: view)
+        
         guard let firstName = firstNameTF.text,
               let lastName = lastNameTF.text,
               let email = emailTF.text,
@@ -153,12 +158,19 @@ class RegisterViewController: UIViewController {
               !firstName.isEmpty, !lastName.isEmpty,
               !email.isEmpty, !password.isEmpty, password.count >= 6
         else {
+            DispatchQueue.main.async {
+                self.spinner.dismiss(animated: true)
+            }
             alertUserRegisterError()
             return
         }
         
         DatabaseManager.shared.userDoesExist(email: email) { [weak self] userDoesExist in
+            
             guard !userDoesExist else {
+                DispatchQueue.main.async {
+                    self?.spinner.dismiss(animated: true)
+                }
                 self?.alertUserRegisterError(message: "Looks like a user account for that email address has already existed")
                 return
             }
@@ -166,12 +178,14 @@ class RegisterViewController: UIViewController {
                 guard authResult != nil, error == nil else {
                     print("Đăng ký tài khoản thất bại.")
                     print(error!.localizedDescription)
+                    DispatchQueue.main.async {
+                        self?.spinner.dismiss(animated: true)
+                    }
+                    self?.alertUserRegisterError(message: "Đăng kí tài khoản thất bại, do không thể tạo user mới trên cơ sở dữ liệu.")
                     return
                 }
                 DatabaseManager.shared.insertUser(with: chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email))
-               
                 print("Đăng ký thành công")
-                
                 self?.navigationController?.dismiss(animated: true)
             }
         }
