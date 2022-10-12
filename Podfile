@@ -12,5 +12,6 @@ pod 'FirebaseDatabase'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
     
+pod 'GoogleSignIn'
 
 end

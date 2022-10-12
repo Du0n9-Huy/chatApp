@@ -33,3 +33,7 @@ extension UIView {
         return top + height
     }
 }
+
+extension Notification.Name {
+    static let didGoogleLogInNotification = Notification.Name("didGoogleLogInNotification")
+}

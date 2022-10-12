@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		87C8A682885B7E492616F025 /* Pods_chatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22888EB61AF6F8F607BD0B7D /* Pods_chatApp.framework */; };
+		E531B80F28F57E5E0084D196 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531B80E28F57E5E0084D196 /* LoginViewModel.swift */; };
+		E531B81328F5D7C50084D196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E531B81228F5D7C50084D196 /* GoogleService-Info.plist */; };
 		E5A3F13028F04D700035EFDF /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */; };
 		E5A7895A28DC569800005572 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7895928DC569800005572 /* AppDelegate.swift */; };
 		E5A7895C28DC569800005572 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7895B28DC569800005572 /* SceneDelegate.swift */; };
@@ -22,13 +24,14 @@
 		E5A7897F28DC5B2600005572 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7897E28DC5B2600005572 /* ProfileViewController.swift */; };
 		E5A7898228DC66F100005572 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7898128DC66F100005572 /* Extension.swift */; };
 		E5AF208B28E45D9C00FC80AD /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF208A28E45D9C00FC80AD /* Database.swift */; };
-		E5AF208D28E45FFD00FC80AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5AF208C28E45FFD00FC80AD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		22888EB61AF6F8F607BD0B7D /* Pods_chatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93024CD4F222755D675DF5E0 /* Pods-chatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatApp.debug.xcconfig"; path = "Target Support Files/Pods-chatApp/Pods-chatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B123F6630DA68CA1963A982C /* Pods-chatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatApp.release.xcconfig"; path = "Target Support Files/Pods-chatApp/Pods-chatApp.release.xcconfig"; sourceTree = "<group>"; };
+		E531B80E28F57E5E0084D196 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		E531B81228F5D7C50084D196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E533882E28F2E798006F5DE2 /* chatApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = chatApp.entitlements; sourceTree = "<group>"; };
 		E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		E5A7895628DC569800005572 /* chatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,7 +49,6 @@
 		E5A7897E28DC5B2600005572 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E5A7898128DC66F100005572 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		E5AF208A28E45D9C00FC80AD /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		E5AF208C28E45FFD00FC80AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				E533882E28F2E798006F5DE2 /* chatApp.entitlements */,
-				E5AF208C28E45FFD00FC80AD /* GoogleService-Info.plist */,
+				E531B81228F5D7C50084D196 /* GoogleService-Info.plist */,
 				E5A7896728DC569900005572 /* Info.plist */,
 				E5A7897028DC592500005572 /* Views */,
 				E5A7897128DC592900005572 /* Models */,
@@ -163,6 +165,7 @@
 		E5A7897228DC593300005572 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				E531B80E28F57E5E0084D196 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -238,7 +241,7 @@
 			files = (
 				E5A7896628DC569900005572 /* LaunchScreen.storyboard in Resources */,
 				E5A7896328DC569900005572 /* Assets.xcassets in Resources */,
-				E5AF208D28E45FFD00FC80AD /* GoogleService-Info.plist in Resources */,
+				E531B81328F5D7C50084D196 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +302,7 @@
 				E5A7897928DC5AE700005572 /* RegisterViewController.swift in Sources */,
 				E5A7898228DC66F100005572 /* Extension.swift in Sources */,
 				E5A7897D28DC5B0800005572 /* VideoPlayerViewController.swift in Sources */,
+				E531B80F28F57E5E0084D196 /* LoginViewModel.swift in Sources */,
 				E5A7897F28DC5B2600005572 /* ProfileViewController.swift in Sources */,
 				E5A3F13028F04D700035EFDF /* MainTabBarViewController.swift in Sources */,
 				E5A7897728DC5AE100005572 /* LoginViewController.swift in Sources */,
@@ -446,6 +450,8 @@
 				DEVELOPMENT_TEAM = M669YQ73BG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chatApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -475,6 +481,8 @@
 				DEVELOPMENT_TEAM = M669YQ73BG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = chatApp/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

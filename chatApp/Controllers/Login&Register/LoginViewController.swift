@@ -7,6 +7,7 @@
 
 import FBSDKLoginKit
 import FirebaseAuth
+import GoogleSignIn
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -70,6 +71,11 @@ class LoginViewController: UIViewController {
         btn.permissions = ["public_profile", "email"]
         return btn
     }()
+    
+    private let googleSignInButton: GIDSignInButton = {
+        let btn = GIDSignInButton()
+        return btn
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +85,10 @@ class LoginViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegisterButton))
         
         loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        
         facebookLoginButton.delegate = self
+        
+        googleSignInButton.addTarget(self, action: #selector(didTapGoogleSignInButton), for: .touchUpInside)
         
         emailTF.delegate = self
         passwordTF.delegate = self
@@ -90,6 +99,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordTF)
         scrollView.addSubview(loginButton)
         scrollView.addSubview(facebookLoginButton)
+        scrollView.addSubview(googleSignInButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -100,6 +110,7 @@ class LoginViewController: UIViewController {
         passwordTF.frame = CGRect(x: 30, y: emailTF.bottom + 20, width: scrollView.width - 60, height: 52)
         loginButton.frame = CGRect(x: 30, y: passwordTF.bottom + 20, width: scrollView.width - 60, height: 52)
         facebookLoginButton.frame = CGRect(x: 30, y: loginButton.bottom + 20, width: scrollView.width - 60, height: 52)
+        googleSignInButton.frame = CGRect(x: 30, y: facebookLoginButton.bottom + 20, width: scrollView.width - 60, height: 52)
     }
     
     @objc private func didTapRegisterButton() {
@@ -119,16 +130,19 @@ class LoginViewController: UIViewController {
         }
         
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-            guard let result = authResult, error == nil else {
-                print("Đăng nhập thất bại.")
+            guard authResult != nil, error == nil else {
+                print("Đăng nhập sử dụng email/password thất bại.")
                 print(error!.localizedDescription)
                 return
             }
-            let user = result.user
-            print("Đăng nhập thành công với người dùng: \(user)")
+            print("Đăng nhập sử dụng email/password thành công")
             
             self?.navigationController?.dismiss(animated: true)
         }
+    }
+    
+    @objc private func didTapGoogleSignInButton() {
+        LoginViewModel.shared.googleSignIn()
     }
     
     private func alertUserLoginError() {
@@ -199,7 +213,7 @@ extension LoginViewController: LoginButtonDelegate {
                     return
                 }
                 print("Successfully logged user in with Facebook")
-                self?.dismiss(animated: true)
+                self?.navigationController?.dismiss(animated: true)
             }
         }
     }

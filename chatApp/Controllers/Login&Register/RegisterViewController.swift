@@ -163,14 +163,14 @@ class RegisterViewController: UIViewController {
                 return
             }
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                guard let result = authResult, error == nil else {
+                guard authResult != nil, error == nil else {
                     print("Đăng ký tài khoản thất bại.")
                     print(error!.localizedDescription)
                     return
                 }
                 DatabaseManager.shared.insertUser(with: chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email))
-                let user = result.user
-                print("Đăng ký thành công: \(user)")
+               
+                print("Đăng ký thành công")
                 
                 self?.navigationController?.dismiss(animated: true)
             }
@@ -208,14 +208,21 @@ extension RegisterViewController: UITextFieldDelegate {
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     private func presentPhotoActionSheet() {
-        let alert = UIAlertController(title: "Profile Picture", message: "How would you like to select a picture?", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Take a photo", style: .default, handler: { [weak self] _ in
-            self?.presentCamera()
-        }))
-        alert.addAction(UIAlertAction(title: "Choose a photo", style: .default, handler: { [weak self] _ in
-            self?.presentPhotoLibrary()
-        }))
+        let alert = UIAlertController(title: "Profile Picture",
+                                      message: "How would you like to select a picture?",
+                                      preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel",
+                                      style: .cancel))
+        alert.addAction(UIAlertAction(title: "Take a photo",
+                                      style: .default,
+                                      handler: { [weak self] _ in
+                                          self?.presentCamera()
+                                      }))
+        alert.addAction(UIAlertAction(title: "Choose a photo",
+                                      style: .default,
+                                      handler: { [weak self] _ in
+                                          self?.presentPhotoLibrary()
+                                      }))
         present(alert, animated: true)
     }
     
