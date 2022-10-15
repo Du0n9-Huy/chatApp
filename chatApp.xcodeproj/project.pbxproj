@@ -24,7 +24,8 @@
 		E5A7897D28DC5B0800005572 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7897C28DC5B0800005572 /* VideoPlayerViewController.swift */; };
 		E5A7897F28DC5B2600005572 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7897E28DC5B2600005572 /* ProfileViewController.swift */; };
 		E5A7898228DC66F100005572 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7898128DC66F100005572 /* Extension.swift */; };
-		E5AF208B28E45D9C00FC80AD /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF208A28E45D9C00FC80AD /* Database.swift */; };
+		E5AF208B28E45D9C00FC80AD /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AF208A28E45D9C00FC80AD /* DatabaseManager.swift */; };
+		E5E0DAA628F972FC008CC45E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E0DAA528F972FC008CC45E /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +51,8 @@
 		E5A7897C28DC5B0800005572 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		E5A7897E28DC5B2600005572 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E5A7898128DC66F100005572 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		E5AF208A28E45D9C00FC80AD /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		E5AF208A28E45D9C00FC80AD /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		E5E0DAA528F972FC008CC45E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +132,8 @@
 		E5A7896E28DC590800005572 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				E5AF208A28E45D9C00FC80AD /* Database.swift */,
+				E5AF208A28E45D9C00FC80AD /* DatabaseManager.swift */,
+				E5E0DAA528F972FC008CC45E /* StorageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -298,7 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5A7895E28DC569800005572 /* Conversations.swift in Sources */,
-				E5AF208B28E45D9C00FC80AD /* Database.swift in Sources */,
+				E5AF208B28E45D9C00FC80AD /* DatabaseManager.swift in Sources */,
 				E5A7895A28DC569800005572 /* AppDelegate.swift in Sources */,
 				E5A7897428DC5A9D00005572 /* NewConversationViewController.swift in Sources */,
 				E5A7897B28DC5AF900005572 /* PhotoViewerViewController.swift in Sources */,
@@ -309,6 +312,7 @@
 				E5A7897F28DC5B2600005572 /* ProfileViewController.swift in Sources */,
 				E5719D6E28F68BAC00AAF3E0 /* ChatViewController.swift in Sources */,
 				E5A3F13028F04D700035EFDF /* MainTabBarViewController.swift in Sources */,
+				E5E0DAA628F972FC008CC45E /* StorageManager.swift in Sources */,
 				E5A7897728DC5AE100005572 /* LoginViewController.swift in Sources */,
 				E5A7895C28DC569800005572 /* SceneDelegate.swift in Sources */,
 			);

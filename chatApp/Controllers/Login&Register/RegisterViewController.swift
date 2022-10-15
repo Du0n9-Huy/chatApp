@@ -174,6 +174,7 @@ class RegisterViewController: UIViewController {
                 self?.alertUserRegisterError(message: "Looks like a user account for that email address has already existed")
                 return
             }
+            
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 guard authResult != nil, error == nil else {
                     print("Đăng ký tài khoản thất bại.")
@@ -184,7 +185,29 @@ class RegisterViewController: UIViewController {
                     self?.alertUserRegisterError(message: "Đăng kí tài khoản thất bại, do không thể tạo user mới trên cơ sở dữ liệu.")
                     return
                 }
-                DatabaseManager.shared.insertUser(with: chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email))
+                
+                let chatUser = chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
+                DatabaseManager.shared.insertUser(with: chatUser) { success in
+                    if success {
+                        // upload image
+                        guard let image = self?.imageView.image,
+                              let data = image.pngData()
+                        else {
+                            return  
+                        }
+                        
+                        let fileName = chatUser.profilePictureFilename
+                        StorageManager.shared.uploadProfilePicture(with: data, filename: fileName) { result in
+                            switch result {
+                            case .success(let downloadURL):
+                                UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
+                                print("Download Url returned: \(downloadURL   )")
+                            case .failure(let error):
+                                print("StorageErrors: \(error) ")
+                            }
+                        }
+                    }
+                }
                 print("Đăng ký thành công")
                 self?.navigationController?.dismiss(animated: true)
             }

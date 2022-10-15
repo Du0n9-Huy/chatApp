@@ -62,13 +62,41 @@ final class LoginViewModel {
         // 2-Thêm user mới vào database, nếu user đã tồn tài rồi thì không thêm lại nữa.
         guard let email = user.profile?.email,
               let firstName = user.profile?.givenName,
-              let lastName = user.profile?.familyName
+              let lastName = user.profile?.familyName,
+              let userHasImage = user.profile?.hasImage
         else {
             return
         }
         DatabaseManager.shared.userDoesExist(email: email) { userDoesExist in
             if !userDoesExist {
-                DatabaseManager.shared.insertUser(with: chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email))
+                // insert to firebase database
+                let chatUser = chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
+                DatabaseManager.shared.insertUser(with: chatUser) { success in
+                    if success && userHasImage {
+                        guard let pictureURL = user.profile?.imageURL(withDimension: 200) else {
+                            return
+                        }
+                        // Downloading data from Google image
+                        URLSession.shared.dataTask(with: pictureURL) { data, _, error in
+                            guard let data = data, error == nil else {
+                                print("Failed to get data from Google.")
+                                return
+                            }
+                            //Got data from Google. Uploading...
+                            // upload image
+                            let fileName = chatUser.profilePictureFilename
+                            StorageManager.shared.uploadProfilePicture(with: data, filename: fileName) { result in
+                                switch result {
+                                case .success(let downloadURL):
+                                    UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
+                                    print("Download Url returned: \(downloadURL)")
+                                case .failure(let error):
+                                    print("StorageErrors: \(error) ")
+                                }
+                            }
+                        }.resume()
+                    }
+                }
             }
         }
 
