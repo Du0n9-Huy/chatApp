@@ -159,6 +159,7 @@ class LoginViewController: UIViewController {
                 self?.alertUserLoginError(with: "Sai tài khoản hoặc mật khẩu.")
                 return
             }
+            UserDefaults.standard.set(email,forKey: "email")
             print("Đăng nhập sử dụng email/password thành công")
             self?.navigationController?.dismiss(animated: true)
         }
@@ -219,6 +220,8 @@ extension LoginViewController: LoginButtonDelegate {
                 print("Failed to get email and name from facebook result.")
                 return
             }
+            
+            UserDefaults.standard.set(email, forKey: "email")
             
             DatabaseManager.shared.userDoesExist(email: email) { userDoesExist in
                 if !userDoesExist {

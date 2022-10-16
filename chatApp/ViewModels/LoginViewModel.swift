@@ -67,6 +67,9 @@ final class LoginViewModel {
         else {
             return
         }
+        
+        UserDefaults.standard.set(email, forKey: "email")
+        
         DatabaseManager.shared.userDoesExist(email: email) { userDoesExist in
             if !userDoesExist {
                 // insert to firebase database
