@@ -5,41 +5,45 @@
 //  Created by huy on 28/09/2022.
 //
 
-import FirebaseDatabase
+import FirebaseFirestore
 import Foundation
 
 final class DatabaseManager {
     static let shared = DatabaseManager()
     private init() {}
 
-    private let database = Database.database().reference()
+    private let db = Firestore.firestore()
 }
 
 extension DatabaseManager {
     func userDoesExist(email: String, completion: @escaping (Bool) -> Void) {
         let safeEmailAddress = email.replacingOccurrences(of: ".", with: "-")
-        database.child(safeEmailAddress).observeSingleEvent(of: .value) { snapshot in
-            guard let user = snapshot.value as? [String: Any] else {
+        let document = db.collection("users").document(safeEmailAddress)
+        document.getDocument { document, error in
+            guard let data = document?.data(),
+                  error == nil
+            else {
                 completion(false)
                 return
             }
-            print("User does exist on realtime-database", user)
+            print("User does exist on FirestoreDatabase", data)
             completion(true)
         }
     }
 
     func insertUser(with user: chatAppUser, completion: @escaping (Bool) -> Void) {
-        database.child(user.safeEmailAddress).setValue([
-            "first_name": user.firstName,
-            "last_name": user.lastName,
-        ]) { error, _ in
-            guard error == nil else {
-                print("Failed to write to Firebase")
-                completion(false)
-                return
+        db.collection("users").document(user.safeEmailAddress).setData(
+            [
+                "first_name": user.firstName,
+                "last_name": user.lastName,
+            ]) { error in
+                guard error == nil else {
+                    print("Failed to write to Firebase Firestore")
+                    completion(false)
+                    return
+                }
+                completion(true)
             }
-            completion(true)
-        }
     }
 }
 

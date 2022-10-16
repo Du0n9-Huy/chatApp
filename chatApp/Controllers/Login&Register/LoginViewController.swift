@@ -231,7 +231,7 @@ extension LoginViewController: LoginButtonDelegate {
                             }
                             // Downloading data from Facebook image
                             URLSession.shared.dataTask(with: url) { data, _, error in
-                                guard let data = data, error == nil else { 
+                                guard let data = data, error == nil else {
                                     print("Failed to get data from Facebook.")
                                     return
                                 }

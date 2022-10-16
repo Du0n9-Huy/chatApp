@@ -7,7 +7,7 @@ target 'chatApp' do
 
   # Pods for chatApp
 pod 'FirebaseAuth'
-pod 'FirebaseDatabase'
+pod 'FirebaseFirestore'
 pod 'FirebaseStorage'
 
 pod 'FBSDKCoreKit'
