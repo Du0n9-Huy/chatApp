@@ -6,14 +6,16 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 import Foundation
 
 final class DatabaseManager {
     static let shared = DatabaseManager()
     private init() {}
-
     private let db = Firestore.firestore()
 }
+
+// MARK: Database Insert
 
 extension DatabaseManager {
     func userDoesExist(email: String, completion: @escaping (Bool) -> Void) {
@@ -31,11 +33,12 @@ extension DatabaseManager {
         }
     }
 
-    func insertUser(with user: chatAppUser, completion: @escaping (Bool) -> Void) {
+    func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
         db.collection("users").document(user.safeEmailAddress).setData(
             [
                 "first_name": user.firstName,
                 "last_name": user.lastName,
+                "keywords": createUserSearchKeywords(withName: "\(user.$lastName) \(user.$firstName)")
             ]) { error in
                 guard error == nil else {
                     print("Failed to write to Firebase Firestore")
@@ -47,16 +50,66 @@ extension DatabaseManager {
     }
 }
 
-struct chatAppUser {
-    let firstName: String
-    let lastName: String
-    let emailAddress: String
+// MARK: Database Search
 
-    var safeEmailAddress: String {
-        return emailAddress.replacingOccurrences(of: ".", with: "-")
+extension DatabaseManager {
+    typealias searchUsersCompletion = (Result<[ChatAppUser], DatabaseSearchError>) -> Void
+    func searchUsers(thatHaveNamesLike searchText: String, completion: @escaping searchUsersCompletion) {
+        let searchTextComponents = searchText.NSC_UCR_RWR_map()
+        guard !searchTextComponents.isEmpty else {
+            completion(.failure(.InvalidSearchText))
+            return
+        }
+
+        let usersRef = db.collection("users")
+        var query = usersRef.whereField("keywords.\(searchTextComponents[0])", isEqualTo: true)
+        for (index, component) in searchTextComponents.enumerated() {
+            guard index != 0 else {
+                continue
+            }
+            query = query.whereField("keywords.\(component)", isEqualTo: true)
+        }
+        query.getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot, error == nil else {
+                print(error!.localizedDescription)
+                completion(.failure(.failedToSearchUsers))
+                return
+            }
+            let results = querySnapshot.documents.compactMap { document in
+                var userDict = document.data()
+                userDict["email_adddress"] = document.documentID.replacingOccurrences(of: "-", with: ".")
+                userDict["keywords"] = nil
+                return ChatAppUser(dictionary: userDict)
+            }
+
+            guard results.count > 0 else {
+                completion(.failure(.DocumentSerializationFailure))
+                return
+            }
+            completion(.success(results))
+        }
     }
 
-    var profilePictureFilename: String {
-        return "\(safeEmailAddress)_profile_picture.png"
+    private func createUserSearchKeywords(withName name: String) -> [String: Bool] {
+        // không cần phải .trimmingCharacters(in: .whitespacesAndNewlines)
+        // vì ở dưới reduce sẽ xử lý
+        var keywords = [String: Bool]()
+        let nameComponents = name.lowercased().components(separatedBy: .whitespaces)
+        nameComponents.forEach { component in
+            // nếu component.count = 0, thì reduce trả về initialResult
+            _ = component.reduce("") { currentString, char in
+                // char is of type String.Element (aka 'Character')
+                let nextString = currentString + String(char)
+                keywords[nextString] = true
+                return nextString
+            }
+        }
+        return keywords
+    }
+
+    enum DatabaseSearchError: Error {
+        case InvalidSearchText
+        case failedToSearchUsers
+        case DocumentSerializationFailure
     }
 }

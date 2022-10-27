@@ -67,12 +67,15 @@ final class LoginViewModel {
         else {
             return
         }
+
+        UserDefaults.standard.set(email, forKey: "email")
+
         DatabaseManager.shared.userDoesExist(email: email) { userDoesExist in
             if !userDoesExist {
                 // insert to firebase database
-                let chatUser = chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
+                let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
                 DatabaseManager.shared.insertUser(with: chatUser) { success in
-                    if success && userHasImage {
+                    if success, userHasImage {
                         guard let pictureURL = user.profile?.imageURL(withDimension: 200) else {
                             return
                         }
@@ -82,7 +85,7 @@ final class LoginViewModel {
                                 print("Failed to get data from Google.")
                                 return
                             }
-                            //Got data from Google. Uploading...
+                            // Got data from Google. Uploading...
                             // upload image
                             let fileName = chatUser.profilePictureFilename
                             StorageManager.shared.uploadProfilePicture(with: data, filename: fileName) { result in

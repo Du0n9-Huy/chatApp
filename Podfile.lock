@@ -650,6 +650,8 @@ PODS:
     - "gRPC-C++ (~> 1.44.0)"
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseFirestoreSwift (9.6.0):
+    - FirebaseFirestore (~> 9.0)
   - FirebaseStorage (9.6.0):
     - FirebaseAppCheckInterop (~> 9.0)
     - FirebaseAuthInterop (~> 9.0)
@@ -770,6 +772,7 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - FirebaseAuth
   - FirebaseFirestore
+  - FirebaseFirestoreSwift
   - FirebaseStorage
   - GoogleSignIn
   - JGProgressHUD
@@ -794,6 +797,7 @@ SPEC REPOS:
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseFirestore
+    - FirebaseFirestoreSwift
     - FirebaseStorage
     - FirebaseStorageInternal
     - GoogleDataTransport
@@ -830,6 +834,7 @@ SPEC CHECKSUMS:
   FirebaseCoreExtension: e83465d1236b166d1d445bbf0e82b65acb30b73b
   FirebaseCoreInternal: bca76517fe1ed381e989f5e7d8abb0da8d85bed3
   FirebaseFirestore: c09ce6d050745a45fb75ebd901005ed3279c3caf
+  FirebaseFirestoreSwift: d86a0fef1225c6c1ddfae15b3250700867d63013
   FirebaseStorage: 1fead543a1f441c3b434c1c9f12560dd82f8b568
   FirebaseStorageInternal: 81d8a597324ccd06c41a43c5700bc1185a2fc328
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
@@ -850,6 +855,6 @@ SPEC CHECKSUMS:
   RealmSwift: aecc52389574be4d451bf6cb1b08824eaa17dad0
   SDWebImage: e5cc87bf736e60f49592f307bdf9e157189298a3
 
-PODFILE CHECKSUM: 7a37c9e40ace6fb327ac8b21e03b6f1d338b8eb4
+PODFILE CHECKSUM: 771e14204f3fe2a204be6538bd1d1f98f5cc6719
 
 COCOAPODS: 1.11.3

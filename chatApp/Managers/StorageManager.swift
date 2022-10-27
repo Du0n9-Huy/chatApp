@@ -45,7 +45,20 @@ final class StorageManager {
                 // 3.2 - Thực hiện bước tiếp theo với 1 chuỗi url
                 let urlString = url.absoluteString
                 completion(.success(urlString))
-            } 
+            }
+        }
+    }
+
+    typealias downloadURLCompletion = (Result<URL, StorageErrors>) -> Void
+
+    func downloadURL(for path: String, completion: @escaping downloadURLCompletion) {
+        let reference = storage.child(path)
+        reference.downloadURL { url, error in
+            guard let url = url, error == nil else {
+                completion(.failure(.failedToGetDownloadURL))
+                return
+            }
+            completion(.success(url))
         }
     }
 

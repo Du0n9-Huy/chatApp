@@ -186,14 +186,14 @@ class RegisterViewController: UIViewController {
                     return
                 }
                 
-                let chatUser = chatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
+                let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
                 DatabaseManager.shared.insertUser(with: chatUser) { success in
                     if success {
                         // upload image
                         guard let image = self?.imageView.image,
                               let data = image.pngData()
                         else {
-                            return  
+                            return
                         }
                         
                         let fileName = chatUser.profilePictureFilename
@@ -201,13 +201,14 @@ class RegisterViewController: UIViewController {
                             switch result {
                             case .success(let downloadURL):
                                 UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
-                                print("Download Url returned: \(downloadURL   )")
+                                print("Download Url returned: \(downloadURL)")
                             case .failure(let error):
                                 print("StorageErrors: \(error) ")
                             }
                         }
                     }
                 }
+                UserDefaults.standard.set(email, forKey: "email")
                 print("Đăng ký thành công")
                 self?.navigationController?.dismiss(animated: true)
             }
