@@ -121,14 +121,16 @@ extension DatabaseManager {
     /// Creates a new conversation with target user email and first sent message
     func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
         guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            print("User email has not been cached - func-createNewConversation")
+            completion(false)
             return
         }
         let safeEmail = currentUserEmail.replacingOccurrences(of: ".", with: "-")
 
         DatabaseManager.shared.userDoesExist(email: safeEmail) { [weak self] userRef, userData in
             guard userData != nil else {
+                print("User not found - func-createNewConversation")
                 completion(false)
-                print("user not found")
                 return
             }
             let conversationRef = (self?.db.collection("conversations").document())!
@@ -145,6 +147,8 @@ extension DatabaseManager {
 
             conversationRef.setData(newConversationData) { error in
                 guard error == nil else {
+                    print("Top-level conversation data can not be set in Cloud Firestore - func-createNewConversation")
+                    completion(false)
                     return
                 }
 
@@ -185,6 +189,8 @@ extension DatabaseManager {
 
                 messageRef.setData(messageData) { error in
                     guard error == nil else {
+                        print("Message data in top-level conversation data can not be set in Cloud Firestore - func-createNewConversation")
+                        completion(false)
                         return
                     }
 
@@ -192,12 +198,15 @@ extension DatabaseManager {
 
                     var dataOfConversationInUserConversationList = newConversationData
 
-                    dataOfConversationInUserConversationList["latest_message"] = [messageRef.documentID:messageData] 
+                    dataOfConversationInUserConversationList["latest_message"] = [messageRef.documentID: messageData]
 
                     conversationInUserConversationListRef.setData(dataOfConversationInUserConversationList) { error in
                         guard error == nil else {
+                            print("Conversation data in 'users' collection can not be set in Cloud Firestore - func-createNewConversation")
+                            completion(false)
                             return
                         }
+                        completion(true)
                     }
                 }
             }
