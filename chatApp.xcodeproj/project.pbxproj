@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		87C8A682885B7E492616F025 /* Pods_chatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22888EB61AF6F8F607BD0B7D /* Pods_chatApp.framework */; };
 		E531B80F28F57E5E0084D196 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531B80E28F57E5E0084D196 /* LoginViewModel.swift */; };
-		E531B81328F5D7C50084D196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E531B81228F5D7C50084D196 /* GoogleService-Info.plist */; };
 		E5719D6E28F68BAC00AAF3E0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5719D6D28F68BAC00AAF3E0 /* ChatViewController.swift */; };
+		E57A101A2917F3C50046334B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E57A10192917F3C50046334B /* GoogleService-Info.plist */; };
 		E5889726290035B400FE6328 /* ChatAppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5889725290035B400FE6328 /* ChatAppUser.swift */; };
 		E5A3F13028F04D700035EFDF /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */; };
 		E5A7895A28DC569800005572 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7895928DC569800005572 /* AppDelegate.swift */; };
@@ -34,9 +34,9 @@
 		93024CD4F222755D675DF5E0 /* Pods-chatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatApp.debug.xcconfig"; path = "Target Support Files/Pods-chatApp/Pods-chatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B123F6630DA68CA1963A982C /* Pods-chatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatApp.release.xcconfig"; path = "Target Support Files/Pods-chatApp/Pods-chatApp.release.xcconfig"; sourceTree = "<group>"; };
 		E531B80E28F57E5E0084D196 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		E531B81228F5D7C50084D196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E533882E28F2E798006F5DE2 /* chatApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = chatApp.entitlements; sourceTree = "<group>"; };
 		E5719D6D28F68BAC00AAF3E0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		E57A10192917F3C50046334B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5889725290035B400FE6328 /* ChatAppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAppUser.swift; sourceTree = "<group>"; };
 		E5A3F12F28F04D700035EFDF /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		E5A7895628DC569800005572 /* chatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				E533882E28F2E798006F5DE2 /* chatApp.entitlements */,
-				E531B81228F5D7C50084D196 /* GoogleService-Info.plist */,
+				E57A10192917F3C50046334B /* GoogleService-Info.plist */,
 				E5A7896728DC569900005572 /* Info.plist */,
 				E5A7897028DC592500005572 /* Views */,
 				E5A7897128DC592900005572 /* Models */,
@@ -250,7 +250,7 @@
 			files = (
 				E5A7896628DC569900005572 /* LaunchScreen.storyboard in Resources */,
 				E5A7896328DC569900005572 /* Assets.xcassets in Resources */,
-				E531B81328F5D7C50084D196 /* GoogleService-Info.plist in Resources */,
+				E57A101A2917F3C50046334B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

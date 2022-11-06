@@ -18,18 +18,19 @@ final class DatabaseManager {
 // MARK: Database Insert
 
 extension DatabaseManager {
-    func userDoesExist(email: String, completion: @escaping (Bool) -> Void) {
+    typealias userDoesExistCompletion = (DocumentReference, [String: Any]?) -> Void
+    func userDoesExist(email: String, completion: @escaping userDoesExistCompletion) {
         let safeEmailAddress = email.replacingOccurrences(of: ".", with: "-")
-        let document = db.collection("users").document(safeEmailAddress)
-        document.getDocument { document, error in
-            guard let data = document?.data(),
+        let userRef = db.collection("users").document(safeEmailAddress)
+        userRef.getDocument { docSnapshot, error in
+            guard let data = docSnapshot?.data(),
                   error == nil
             else {
-                completion(false)
+                completion(userRef, nil)
                 return
             }
-            print("User does exist on FirestoreDatabase", data)
-            completion(true)
+            print("User does exist on FirestoreDatabase")
+            completion(userRef, data)
         }
     }
 
@@ -111,5 +112,112 @@ extension DatabaseManager {
         case InvalidSearchText
         case failedToSearchUsers
         case DocumentSerializationFailure
+    }
+}
+
+// MARK: - Sending messages  conversations
+
+extension DatabaseManager {
+    /// Creates a new conversation with target user email and first sent message
+    func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            return
+        }
+        let safeEmail = currentUserEmail.replacingOccurrences(of: ".", with: "-")
+
+        DatabaseManager.shared.userDoesExist(email: safeEmail) { [weak self] userRef, userData in
+            guard userData != nil else {
+                completion(false)
+                print("user not found")
+                return
+            }
+            let conversationRef = (self?.db.collection("conversations").document())!
+
+            let newConversationData: [String: Any] = [
+                "conversation_name": "",
+                "is_personal_conversation": true,
+                "is_group_conversation": false,
+                "conversation_picture": "",
+                "tag": "",
+                "is_pinned": false,
+                "is_active": true
+            ]
+
+            conversationRef.setData(newConversationData) { error in
+                guard error == nil else {
+                    return
+                }
+
+                let messageRef = conversationRef.collection("messages").document()
+
+                var messageData: [String: Any] = [
+                    "content": "",
+                    "content_type": "",
+                    "date": ChatViewController.dateFormatter.string(from: firstMessage.sentDate),
+                    "is_read": false,
+                    "sender_email": currentUserEmail,
+                    "receiver_email": otherUserEmail
+                ]
+
+                switch firstMessage.kind {
+                case .text(let messageText):
+                    messageData["content"] = messageText
+                    messageData["content_type"] = "text"
+                case .attributedText:
+                    break
+                case .photo:
+                    break
+                case .video:
+                    break
+                case .location:
+                    break
+                case .emoji:
+                    break
+                case .audio:
+                    break
+                case .contact:
+                    break
+                case .linkPreview:
+                    break
+                case .custom:
+                    break
+                }
+
+                messageRef.setData(messageData) { error in
+                    guard error == nil else {
+                        return
+                    }
+
+                    let conversationInUserConversationListRef = userRef.collection("conversationList").document("\(conversationRef.documentID)")
+
+                    var dataOfConversationInUserConversationList = newConversationData
+
+                    dataOfConversationInUserConversationList["latest_message"] = [messageRef.documentID:messageData] 
+
+                    conversationInUserConversationListRef.setData(dataOfConversationInUserConversationList) { error in
+                        guard error == nil else {
+                            return
+                        }
+                    }
+                }
+            }
+
+            //
+        }
+    }
+
+    /// Fetches and returns all conversations for the user with passed-in email
+    func getAllConversations(for email: String, completion: @escaping (Result<String, Error>) -> Void) {
+        //
+    }
+
+    /// Gets all messages for a given conversation
+    func getAllMessagesForConversation(with id: String, completion: @escaping (Result<String, Error>) -> Void) {
+        //
+    }
+
+    /// Sends a message with target conversation and message
+    func sendMessage(to conversation: String, message: Message, Completion: @escaping (Bool) -> Void) {
+        //
     }
 }

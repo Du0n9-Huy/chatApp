@@ -48,7 +48,7 @@ class ProfileViewController: UIViewController {
             return nil
         }
 
-        let safeEmailAddress = emailAddress.replacingOccurrences(of: "-", with: ".")
+        let safeEmailAddress = emailAddress.replacingOccurrences(of: ".", with: "-")
 
         let fileName = "\(safeEmailAddress)_profile_picture.png"
         let path = "images/\(fileName)"

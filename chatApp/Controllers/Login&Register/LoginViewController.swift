@@ -159,7 +159,7 @@ class LoginViewController: UIViewController {
                 self?.alertUserLoginError(with: "Sai tài khoản hoặc mật khẩu.")
                 return
             }
-            UserDefaults.standard.set(email,forKey: "email")
+            UserDefaults.standard.set(email, forKey: "email")
             print("Đăng nhập sử dụng email/password thành công")
             self?.navigationController?.dismiss(animated: true)
         }
@@ -223,8 +223,8 @@ extension LoginViewController: LoginButtonDelegate {
             
             UserDefaults.standard.set(email, forKey: "email")
             
-            DatabaseManager.shared.userDoesExist(email: email) { userDoesExist in
-                if !userDoesExist {
+            DatabaseManager.shared.userDoesExist(email: email) { _, userData in
+                if userData == nil {
                     // insert to Firebase database
                     let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
                     DatabaseManager.shared.insertUser(with: chatUser) { success in

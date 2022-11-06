@@ -9,6 +9,8 @@ import JGProgressHUD
 import UIKit
 
 class NewConversationViewController: UIViewController {
+    public var completion: ((_ userData: ChatAppUser) -> Void)?
+
     private var userSearchResults = [ChatAppUser]()
 
     private let spinner = JGProgressHUD(style: .dark)
@@ -87,13 +89,17 @@ extension NewConversationViewController: UITableViewDataSource, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
-        let result = userSearchResults[indexPath.row]
-        cell.textLabel?.text = "\(result.lastName) \(result.firstName)"
+        let user = userSearchResults[indexPath.row]
+        cell.textLabel?.text = "\(user.lastName) \(user.firstName)"
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let targetUser = userSearchResults[indexPath.row]
+        navigationController?.dismiss(animated: true) { [weak self] in
+            self?.completion?(targetUser)
+        }
     }
 }
 

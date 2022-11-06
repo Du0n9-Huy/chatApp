@@ -84,8 +84,19 @@ class ConversationsViewController: UIViewController {
 
     @objc private func didTapComposeNavBarButton() {
         let vc = NewConversationViewController()
+        vc.completion = { [weak self] targetUser in
+            self?.createNewConversation(withOtherUser: targetUser)
+        }
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
+    }
+
+    private func createNewConversation(withOtherUser user: ChatAppUser) {
+        let vc = ChatViewController(withOtherUserEmail: user.emailAddress)
+        vc.isNewConversation = true
+        vc.title = user.lastName + user.firstName
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -104,7 +115,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let vc = ChatViewController()
+        let vc = ChatViewController(withOtherUserEmail: "other_dummy@gmail.com")
         vc.title = "Duong Xuan Huy"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)

@@ -70,8 +70,8 @@ final class LoginViewModel {
 
         UserDefaults.standard.set(email, forKey: "email")
 
-        DatabaseManager.shared.userDoesExist(email: email) { userDoesExist in
-            if !userDoesExist {
+        DatabaseManager.shared.userDoesExist(email: email) { _, userData in
+            if userData == nil {
                 // insert to firebase database
                 let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
                 DatabaseManager.shared.insertUser(with: chatUser) { success in

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>665522953674-o3cf522bjfjel2djiloand712u8so4hm.apps.googleusercontent.com</string>
+	<string>893726887023-njitggdp2iplfj7o5sni4ej6tjmu44cc.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.665522953674-o3cf522bjfjel2djiloand712u8so4hm</string>
+	<string>com.googleusercontent.apps.893726887023-njitggdp2iplfj7o5sni4ej6tjmu44cc</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAuE595XiYnsthx7IXZZXK-1WyQiVxf9Kw</string>
+	<string>AIzaSyCYTUOWCP4Nm6u7jC8sdAc7H_QlI_FejVU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>665522953674</string>
+	<string>893726887023</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>personal.chatApp</string>
 	<key>PROJECT_ID</key>
-	<string>mydb02-18128</string>
+	<string>mychatapp-268ec</string>
 	<key>STORAGE_BUCKET</key>
-	<string>mydb02-18128.appspot.com</string>
+	<string>mychatapp-268ec.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:665522953674:ios:1242794f8aae48366a0333</string>
-	<key>DATABASE_URL</key>
-	<string>https://mydb02-18128-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+	<string>1:893726887023:ios:6cca732e42cb1b9a07119a</string>
 </dict>
 </plist>

@@ -165,9 +165,9 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        DatabaseManager.shared.userDoesExist(email: email) { [weak self] userDoesExist in
+        DatabaseManager.shared.userDoesExist(email: email) { [weak self] _, userData in
             
-            guard !userDoesExist else {
+            guard userData == nil else {
                 DispatchQueue.main.async {
                     self?.spinner.dismiss(animated: true)
                 }
