@@ -198,7 +198,15 @@ extension DatabaseManager {
 
                     var dataOfConversationInUserConversationList = newConversationData
 
-                    dataOfConversationInUserConversationList["latest_message"] = [messageRef.documentID: messageData]
+                    dataOfConversationInUserConversationList["latest_message"] = [
+                        "id": messageRef.documentID,
+                        "content": "",
+                        "content_type": "",
+                        "date": ChatViewController.dateFormatter.string(from: firstMessage.sentDate),
+                        "is_read": false,
+                        "sender_email": currentUserEmail,
+                        "receiver_email": otherUserEmail
+                    ]
 
                     conversationInUserConversationListRef.setData(dataOfConversationInUserConversationList) { error in
                         guard error == nil else {
